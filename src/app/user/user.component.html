@@ -1,0 +1,63 @@
+<p>Formulaire d'inscription</p>
+<form [formGroup]="formGroup" #myForm="ngForm" (ngSubmit)="formGroup.valid && validate()">
+<div formGroupName="credentials">
+  <div>
+    <label>
+      Email:
+        <input type="text" formControlName="email"/>
+          <div *ngIf="formGroup.get('credentials.email')?.errors && !formGroup.get('credentials.email')?.pristine" class="error-msg">
+            <div [hidden]="!formGroup.get('credentials.email')?.errors?.['required']">email is required.</div>
+            <div [hidden]="!formGroup.get('credentials.email')?.invalid">email is invalid.</div>
+          </div>
+    </label>
+  </div>
+  <div>
+    <label>
+      Mot de passe:
+        <input type="text" formControlName="password"/>
+    </label>
+  </div>
+</div>
+<div>
+  <label>
+    Nom:
+      <input type="text" formControlName="username"/>
+  </label>
+</div>
+<div formGroupName="adresse">
+  <span>Adresse :</span>
+  <div>
+    <label>
+      Rue:
+        <input type="text" formControlName="rue"/>
+    </label>
+  </div>
+  <div>
+    <label>
+      Code postal:
+        <input type="text" formControlName="codepostal"/>
+    </label>
+  </div>
+  <div>
+    <label>
+      Ville:
+        <input type="text" formControlName="ville"/>
+    </label>
+  </div>
+</div>
+
+<button type = "submit" (click)="handleValidate()">Validation</button>
+</form>
+
+<p>Détail du user</p>
+<ul>
+  <li *ngFor="let u of users">
+    Email : {{u.credentials.email}}
+    Mot de passe : {{u.credentials.password}}
+    Nom : {{u.username}}
+    Adresse :
+    rue : {{u.adresse.rue}}
+    Code postal : {{u.adresse.codepostal}}
+    Ville : {{u.adresse.ville}}
+  </li>
+</ul>
